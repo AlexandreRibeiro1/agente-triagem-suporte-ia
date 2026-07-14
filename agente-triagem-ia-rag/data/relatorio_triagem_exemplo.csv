@@ -1,0 +1,31 @@
+﻿timestamp,chamado,urgencia_prevista,acao_tomada,origem_resposta,similaridade_faq,resposta_automatica
+2026-07-14 20:25:09,"O site caiu para todos os clientes, ninguém consegue comprar",urgente,🚨 ESCALAR IMEDIATAMENTE para o time de plantão,escalonamento,,
+2026-07-14 20:25:09,Como faço para trocar minha senha de acesso?,normal,✅ Resolvido automaticamente pelo agente (RAG),rag,0.5,"Olá! Encontramos uma resposta que pode ajudar com sua dúvida:
+
+Acesse Configurações > Segurança > Alterar senha. Você receberá um e-mail de confirmação para validar a alteração. Por segurança, a nova senha deve ter no mínimo 8 caracteres, incluindo letras e números.
+
+Se isso não resolver completamente, responda este chamado que um atendente humano dará continuidade."
+2026-07-14 20:25:09,Identificamos uma falha de segurança grave no login,urgente,🚨 ESCALAR IMEDIATAMENTE para o time de plantão,escalonamento,,
+2026-07-14 20:25:09,Qual o prazo para meu pedido chegar?,normal,✅ Resolvido automaticamente pelo agente (RAG),rag,0.835,"Olá! Encontramos uma resposta que pode ajudar com sua dúvida:
+
+O prazo padrão é de 5 a 10 dias úteis, dependendo da sua região. Você pode acompanhar o status exato do seu pedido em Meus Pedidos > Rastreamento.
+
+Se isso não resolver completamente, responda este chamado que um atendente humano dará continuidade."
+2026-07-14 20:25:09,Gostaria de entender como funciona o plano premium de vocês,normal,✅ Resolvido automaticamente pelo agente (RAG),rag,0.876,"Olá! Encontramos uma resposta que pode ajudar com sua dúvida:
+
+O plano Premium inclui relatórios avançados, suporte prioritário e integrações via API. Você pode comparar todos os planos em Configurações > Assinatura > Planos Disponíveis.
+
+Se isso não resolver completamente, responda este chamado que um atendente humano dará continuidade."
+2026-07-14 20:25:09,Não recebi o e-mail de confirmação do meu cadastro,normal,✅ Resolvido automaticamente pelo agente (RAG),rag,1.0,"Olá! Encontramos uma resposta que pode ajudar com sua dúvida:
+
+Verifique sua caixa de spam/lixo eletrônico primeiro. Se não encontrar, acesse a tela de login e clique em 'Reenviar confirmação'. O e-mail pode levar até 15 minutos para chegar.
+
+Se isso não resolver completamente, responda este chamado que um atendente humano dará continuidade."
+2026-07-14 20:25:09,Toda a equipe está sem acesso ao sistema agora,urgente,🚨 ESCALAR IMEDIATAMENTE para o time de plantão,escalonamento,,
+2026-07-14 20:25:09,Vocês têm alguma integração com sistema de folha de pagamento?,urgente,🚨 ESCALAR IMEDIATAMENTE para o time de plantão,escalonamento,,
+2026-07-14 20:25:09,Quero cancelar minha assinatura no fim do mês,normal,✅ Resolvido automaticamente pelo agente (RAG),rag,0.752,"Olá! Encontramos uma resposta que pode ajudar com sua dúvida:
+
+Acesse Configurações > Assinatura > Cancelar Plano. O cancelamento é efetivado ao final do ciclo já pago, sem cobranças adicionais, e você mantém acesso até essa data.
+
+Se isso não resolver completamente, responda este chamado que um atendente humano dará continuidade."
+2026-07-14 20:25:09,"Meu cachorro comeu meu carregador de notebook, o que eu faço?",normal,📋 Encaminhado para a fila humana (sem correspondência confiável na FAQ),fila_humana,,
