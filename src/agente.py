@@ -27,12 +27,16 @@ class AgenteTriagemSuporte:
         """Percepção: usa o modelo de ML para classificar a urgência."""
         return self.classificador.prever(texto_chamado)
 
-    def decidir_e_agir(self, texto_chamado):
+    def decidir_e_agir(self, texto_chamado, urgencia=None):
         """
         Decisão + ação: define o que fazer com o chamado e já executa,
         incluindo, quando possível, a resposta automática via RAG.
+
+        Se a urgência já foi classificada (caso de agir()), ela é reaproveitada
+        em vez de rodar o modelo de novo.
         """
-        urgencia = self.perceber_e_classificar(texto_chamado)
+        if urgencia is None:
+            urgencia = self.perceber_e_classificar(texto_chamado)
 
         if urgencia == "urgente":
             return {
@@ -63,7 +67,7 @@ class AgenteTriagemSuporte:
     def agir(self, texto_chamado):
         """Executa o ciclo completo do agente para um chamado e registra o log."""
         urgencia = self.perceber_e_classificar(texto_chamado)
-        decisao = self.decidir_e_agir(texto_chamado)
+        decisao = self.decidir_e_agir(texto_chamado, urgencia)
 
         registro = {
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -83,7 +87,13 @@ class AgenteTriagemSuporte:
         incluindo a taxa de resolução automática (KPI-chave para mostrar o
         ganho real de eficiência do agente).
         """
-        df = pd.DataFrame(self.log_acoes)
+        df = pd.DataFrame(
+            self.log_acoes,
+            columns=[
+                "timestamp", "chamado", "urgencia_prevista", "acao_tomada",
+                "origem_resposta", "similaridade_faq", "resposta_automatica",
+            ],
+        )
         resumo_urgencia = df["urgencia_prevista"].value_counts()
         resumo_origem = df["origem_resposta"].value_counts()
 

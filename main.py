@@ -10,15 +10,15 @@
 # Autor: Alexandre (Ale)
 # =============================================================================
 
-import os
-import pandas as pd
+from pathlib import Path
 
 from src.classificador import ClassificadorUrgencia
-from src.base_conhecimento import BaseConhecimento
+from src.base_conhecimento import BaseConhecimento, LIMIAR_PADRAO
 from src.agente import AgenteTriagemSuporte
 
-CAMINHO_BASE_CONHECIMENTO = os.path.join("data", "base_conhecimento.csv")
-CAMINHO_SAIDA = os.path.join("data", "relatorio_triagem.csv")
+RAIZ = Path(__file__).resolve().parent
+CAMINHO_BASE_CONHECIMENTO = RAIZ / "data" / "base_conhecimento.csv"
+CAMINHO_SAIDA = RAIZ / "data" / "relatorio_triagem.csv"
 
 
 # -----------------------------------------------------------------------------
@@ -30,7 +30,7 @@ classificador.treinar()
 # -----------------------------------------------------------------------------
 # 2. Carrega a base de conhecimento (FAQ) para o RAG
 # -----------------------------------------------------------------------------
-base_conhecimento = BaseConhecimento(CAMINHO_BASE_CONHECIMENTO, limiar_similaridade=0.30)
+base_conhecimento = BaseConhecimento(CAMINHO_BASE_CONHECIMENTO, limiar_similaridade=LIMIAR_PADRAO)
 
 # -----------------------------------------------------------------------------
 # 3. Instancia o agente, unindo classificador + RAG
@@ -50,7 +50,9 @@ novos_chamados = [
     "Gostaria de entender como funciona o plano premium de vocês",
     "Não recebi o e-mail de confirmação do meu cadastro",
     "Toda a equipe está sem acesso ao sistema agora",
-    "Vocês têm alguma integração com sistema de folha de pagamento?",  # sem match na FAQ
+    # Sem match na FAQ. Erro conhecido do classificador: marca como urgente porque
+    # "pagamento" só aparece em chamados urgentes na base de treino.
+    "Vocês têm alguma integração com sistema de folha de pagamento?",
     "Quero cancelar minha assinatura no fim do mês",
     "Meu cachorro comeu meu carregador de notebook, o que eu faço?",  # fora de escopo, sem match
 ]
@@ -82,6 +84,6 @@ print(estatisticas["resumo_origem"].to_string())
 print(f"\nTotal de chamados processados: {estatisticas['total_chamados']}")
 print(f"Taxa de resolução automática (RAG): {estatisticas['taxa_resolucao_automatica']:.0%}")
 
-os.makedirs(os.path.dirname(CAMINHO_SAIDA), exist_ok=True)
+CAMINHO_SAIDA.parent.mkdir(parents=True, exist_ok=True)
 df_log.to_csv(CAMINHO_SAIDA, index=False, encoding="utf-8-sig")
-print(f"\n✅ Relatório salvo em: {CAMINHO_SAIDA}")
+print(f"\n✅ Relatório salvo em: {CAMINHO_SAIDA.relative_to(RAIZ)}")

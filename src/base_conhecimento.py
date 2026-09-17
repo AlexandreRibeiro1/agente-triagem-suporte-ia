@@ -34,10 +34,17 @@ STOPWORDS_PT = [
 ]
 
 
+# Limiar mínimo de similaridade para o agente responder sozinho. Escolhido pela
+# varredura em avaliar.py (ver reports/metricas.md): com 0.30 o agente respondia
+# chamados sem relação com a FAQ (ex.: "integração com folha de pagamento" caía
+# na FAQ de cartão de pagamento); 0.50 mantém o acerto e corta essas respostas.
+LIMIAR_PADRAO = 0.50
+
+
 class BaseConhecimento:
     """Base de FAQ consultável por similaridade semântica (TF-IDF + cosseno)."""
 
-    def __init__(self, caminho_csv, limiar_similaridade=0.30):
+    def __init__(self, caminho_csv, limiar_similaridade=LIMIAR_PADRAO):
         self.df = pd.read_csv(caminho_csv)
         self.limiar_similaridade = limiar_similaridade
 
@@ -63,6 +70,7 @@ class BaseConhecimento:
 
         item = self.df.iloc[indice_melhor]
         return {
+            "id": int(item["id"]),
             "categoria": item["categoria"],
             "pergunta_faq": item["pergunta"],
             "resposta": item["resposta"],
